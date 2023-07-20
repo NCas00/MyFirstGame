@@ -90,7 +90,7 @@ public class EnemyAi : MonoBehaviour
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
 
-            EndGame();
+            //EndGame();
         }
     }
 
@@ -102,6 +102,11 @@ public class EnemyAi : MonoBehaviour
     public void DealDamageToEnemy()
     {
         enemyHP--;
+
+        if (enemyHP == 0)
+        {
+            DestroyEnemy();
+        }
     }
 
     public int GetEnemyHP()

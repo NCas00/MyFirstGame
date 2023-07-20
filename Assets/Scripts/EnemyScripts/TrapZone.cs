@@ -9,15 +9,10 @@ public class TrapZone : MonoBehaviour
         if (other.CompareTag("Enemy"))
         {
             EnemyAi enemy = other.GetComponent<EnemyAi>();
+
             if(enemy != null)
             {
                 enemy.DealDamageToEnemy();
-
-                if(enemy.GetEnemyHP() == 0)
-                {
-                    enemy.DestroyEnemy();
-                }
-                
             }
         }
         

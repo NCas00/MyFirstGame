@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +13,8 @@ public class ShootingController : MonoBehaviour
     public Action<RaycastHit> onDummyHit;
 
     public InputManager actions;
+
+    private List<VictimController> activeEnemies = new List<VictimController>();
 
     private void Awake()
     {

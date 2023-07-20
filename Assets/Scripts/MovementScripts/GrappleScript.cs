@@ -9,20 +9,20 @@ public class GrappleScript : MonoBehaviour
     [SerializeField] [Range(0.1f, 1f)] private float minJointDistanceMultiplier = 0.25f;
     [SerializeField] public bool isGrappling;
 
-    public Vector3 grapplePoint;
-    public LayerMask whatIsGrappleable;
-    public Transform gunMuzzle, cameraPos, player, orientation;
-    private SpringJoint joint;
-
     //Swing
     [SerializeField] [Range(1000f, 20000f)] private float forwardThrustForce;
     [SerializeField] [Range(1000f, 20000f)] private float horizontalThrustForce;
     [SerializeField] [Range(1000f, 20000f)] private float pullThrustForce;
     [SerializeField] [Range(1f, 200f)] private float extendCableSpeed;
 
+    //references
+    [SerializeField] private Vector3 grapplePoint;
+    [SerializeField] private LayerMask whatIsGrappleable;
+    [SerializeField] private Transform gunMuzzle, cameraPos, player, orientation;
     [SerializeField] private LineRenderer lr;
     [SerializeField] private Rigidbody rb;
-    public PlayerController playerController;
+    private SpringJoint joint;
+
     public InputManager actions;
 
     private void Awake()
