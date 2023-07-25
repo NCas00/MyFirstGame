@@ -155,11 +155,6 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(movement.normalized * speed, ForceMode.Force);
         }
-
-        if (movement.magnitude > 0.1f)
-        {
-            transform.rotation = (Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(movement.x, 0, movement.z)), 0.15f));
-        }
     }
 }
 

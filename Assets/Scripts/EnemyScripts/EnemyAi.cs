@@ -3,19 +3,20 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
-    [SerializeField] NavMeshAgent agent;
+    
 
     [SerializeField] private float enemySpeed;
 
-    [SerializeField] private int enemyHP;
+    [SerializeField] private int enemyMaxHP, enemyHP;
 
     [SerializeField] private Transform player;
 
     [SerializeField] private LayerMask whatIsGround, whatIsPlayer;
 
     [SerializeField] GameOverManager gameOverManager;
-
     [SerializeField] EnemySpawner spawner;
+    [SerializeField] NavMeshAgent agent;
+    [SerializeField] public EnemyHPBar healthBar;
 
     //Patroling
     [SerializeField] private Vector3 walkPoint;
@@ -37,6 +38,7 @@ public class EnemyAi : MonoBehaviour
         agent.speed = enemySpeed;
         gameOverManager = GameObject.FindAnyObjectByType<GameOverManager>();
         spawner = FindObjectOfType<EnemySpawner>();
+        healthBar = GetComponentInChildren<EnemyHPBar>();
     }
 
     private void Update()
@@ -84,14 +86,16 @@ public class EnemyAi : MonoBehaviour
 
         transform.LookAt(player);
 
-        if (!alreadyAttacked)
+        EndGame();
+
+        /*if (!alreadyAttacked)
         {
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
 
-            //EndGame();
-        }
+            EndGame();
+        }*/
     }
 
     private void ResetAttack()
@@ -102,6 +106,8 @@ public class EnemyAi : MonoBehaviour
     public void DealDamageToEnemy()
     {
         enemyHP--;
+
+        healthBar.UpdateHealthBar(enemyMaxHP, enemyHP);
 
         if (enemyHP == 0)
         {
@@ -123,12 +129,14 @@ public class EnemyAi : MonoBehaviour
                 spawner.RemoveEnemy(gameObject);
             }
 
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 
     private void EndGame()
     {
+        Debug.Log("Endgame");
         gameOverManager.GameOver();
         Time.timeScale = 0f;
     }

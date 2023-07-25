@@ -5,7 +5,7 @@ using UnityEngine;
 public class VictimController : MonoBehaviour
 {
     [SerializeField] [Range(1f,100f)] private float impactForce;
-    [SerializeField] private EnemyAi enemy;
+    private EnemyAi enemy;
 
     private void Start()
     {
@@ -15,14 +15,23 @@ public class VictimController : MonoBehaviour
 
     private void HandleCubeHit(RaycastHit hit)
     {
-        if (hit.transform.gameObject == transform.gameObject)
+        if (hit.transform.CompareTag("Enemy"))
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
+            Debug.Log("HandleCubeHit");
+            enemy = hit.transform.GetComponent<EnemyAi>();
+            Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
             rb.AddForce(-hit.normal * impactForce, ForceMode.Impulse);
 
+            enemy.DealDamageToEnemy();
+            
             if (enemy != null)
             {
-                enemy.DealDamageToEnemy();
+                
+                /*
+                for (int i = 0; i < 3; i++)
+                {
+                    enemy.DealDamageToEnemy();
+                }*/
             }
         }
     }

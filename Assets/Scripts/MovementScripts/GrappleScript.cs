@@ -12,7 +12,7 @@ public class GrappleScript : MonoBehaviour
     //Swing
     [SerializeField] [Range(1000f, 20000f)] private float forwardThrustForce;
     [SerializeField] [Range(1000f, 20000f)] private float horizontalThrustForce;
-    [SerializeField] [Range(1000f, 20000f)] private float pullThrustForce;
+    [SerializeField] [Range(1000f, 50000f)] private float pullThrustForce;
     [SerializeField] [Range(1f, 200f)] private float extendCableSpeed;
 
     //references
@@ -34,6 +34,7 @@ public class GrappleScript : MonoBehaviour
     {
         actions = new InputManager();
         actions.Player.Enable();
+        lr.positionCount = 2;
     }
 
     private void LateUpdate()
@@ -76,14 +77,22 @@ public class GrappleScript : MonoBehaviour
 
 	public void GrabStarted(InputAction.CallbackContext context)
 	{
-        
         RaycastHit hit;
 
         if(Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, maxDistance, whatIsGrappleable))
         {
             isGrappling = true;
             grapplePoint = hit.point;
-            CreateJoint();
+            if (Application.isPlaying ) //&& joint == null
+            {
+                CreateJoint();
+            }
+            /*else
+            {
+                joint.spring = 5f;
+                joint.damper = 3f;
+            }*/
+
             lr.positionCount = 2;
         }
 	}
@@ -122,7 +131,7 @@ public class GrappleScript : MonoBehaviour
 
     public void SCPerformed(InputAction.CallbackContext context) // shorten cable
     {
-        if (isGrappling == true)
+        if (isGrappling == true && joint != null)
         {
             Vector3 directionToPoint = grapplePoint - transform.position;
             rb.AddForce(directionToPoint.normalized * pullThrustForce * Time.deltaTime);
@@ -147,7 +156,7 @@ public class GrappleScript : MonoBehaviour
 
     private void DrawRope()
     {
-        if (joint != null)
+        if (joint != null )//&& lr.positionCount >= 2
         {
             lr.SetPosition(0, gunMuzzle.position);
             lr.SetPosition(1, grapplePoint);
@@ -183,8 +192,11 @@ public class GrappleScript : MonoBehaviour
     {
         if(joint != null)
         {
-            Destroy(joint);
+            DestroyImmediate(joint);
             joint = null;
+
+            //joint.spring = 0f;
+            //joint.damper = 0f;
         }
     }
 }

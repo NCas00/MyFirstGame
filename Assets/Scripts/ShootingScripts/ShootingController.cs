@@ -8,18 +8,16 @@ public class ShootingController : MonoBehaviour
 {
     [SerializeField][Range(1f, 200f)] private float shootingDistance = 100f;
 
-    private Transform pistolero;
+    [SerializeField] private Transform player;
 
     public Action<RaycastHit> onDummyHit;
 
     public InputManager actions;
 
-    private List<VictimController> activeEnemies = new List<VictimController>();
-
     private void Awake()
     {
-        pistolero = transform;
         actions = new InputManager();
+        player = transform;
     }
 
     private void OnEnable()
@@ -43,13 +41,14 @@ public class ShootingController : MonoBehaviour
 
     public void Shoot()
     {
-        Ray ray = new Ray(pistolero.position, pistolero.forward);
+        Ray ray = new Ray(player.position, player.forward);
         RaycastHit hit;
 
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * shootingDistance, Color.red, 1f);
 
         if (Physics.Raycast(ray, out hit, shootingDistance))
         {
+            Debug.Log("colpito");
             Transform hitTransform = hit.collider.transform;
             var normal = hit.normal; 
             onDummyHit?.Invoke(hit);

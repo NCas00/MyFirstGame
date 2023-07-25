@@ -11,8 +11,6 @@ public class GroundCheck : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawLine(transform.position, transform.position + (Vector3.down * distanceToCheck * 10) , Color.white);
-
         if (Physics.Raycast(transform.position, Vector2.down, distanceToCheck))
         {
             isGrounded = true;
