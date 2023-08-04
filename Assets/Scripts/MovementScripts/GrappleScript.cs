@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 public class GrappleScript : MonoBehaviour
 {
@@ -7,6 +8,10 @@ public class GrappleScript : MonoBehaviour
     [SerializeField] [Range(1f, 200f)] private float maxDistance = 100f;
     [SerializeField] [Range(0.1f, 1f)] private float maxJointDistanceMultiplier = 0.8f;
     [SerializeField] [Range(0.1f, 1f)] private float minJointDistanceMultiplier = 0.25f;
+    public Action<AudioClip> OnGrappleHit;
+    private AudioClip audioClip;
+    
+
     [SerializeField] public bool isGrappling;
 
     //Swing
@@ -39,7 +44,10 @@ public class GrappleScript : MonoBehaviour
 
     private void LateUpdate()
     {
-        DrawRope();
+        if (lr != null) // Verifica se il componente LineRenderer esiste ancora
+        {
+            DrawRope();
+        }
     }
 
     private void OnEnable()
@@ -69,39 +77,45 @@ public class GrappleScript : MonoBehaviour
         actions.Player.ShortenCable.performed -= SCPerformed;
         actions.Player.ExtendCable.performed -= ECPerformed;
 
-        if (joint != null)
-        {
-            GrabCanceled(default);
-        }
+        GrabCanceled(default);
     }
 
-	public void GrabStarted(InputAction.CallbackContext context)
-	{
+    public void GrabStarted(InputAction.CallbackContext context)
+    {
         RaycastHit hit;
 
-        if(Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, maxDistance, whatIsGrappleable))
+        if (cameraPos == null)
         {
+            return; 
+        }
+
+        if (Physics.Raycast(cameraPos.position, cameraPos.forward, out hit, maxDistance, whatIsGrappleable))
+        {
+            OnGrappleHit?.Invoke(audioClip);
+
             isGrappling = true;
             grapplePoint = hit.point;
-            if (Application.isPlaying ) //&& joint == null
+
+            if (Application.isPlaying && joint == null && player != null)
             {
                 CreateJoint();
             }
-            /*else
-            {
-                joint.spring = 5f;
-                joint.damper = 3f;
-            }*/
 
-            lr.positionCount = 2;
+            if (lr != null)
+            {
+                lr.positionCount = 2;
+            }
         }
-	}
+    }
 
     public void GrabCanceled(InputAction.CallbackContext context)
     {
-        isGrappling = false;
-        DestroyJoint();
-        lr.positionCount = 0;
+        if (joint != null)
+        {
+            isGrappling = false;
+            DestroyJoint();
+            lr.positionCount = 0;
+        }
     }
 
     public void FSPerformed(InputAction.CallbackContext context) //swing forward
@@ -156,7 +170,7 @@ public class GrappleScript : MonoBehaviour
 
     private void DrawRope()
     {
-        if (joint != null )//&& lr.positionCount >= 2
+        if (joint != null && gunMuzzle != null) // Controlla sia il Joint che il gunMuzzle
         {
             lr.SetPosition(0, gunMuzzle.position);
             lr.SetPosition(1, grapplePoint);
@@ -192,11 +206,7 @@ public class GrappleScript : MonoBehaviour
     {
         if(joint != null)
         {
-            DestroyImmediate(joint);
-            joint = null;
-
-            //joint.spring = 0f;
-            //joint.damper = 0f;
+            Destroy(joint);
         }
     }
 }

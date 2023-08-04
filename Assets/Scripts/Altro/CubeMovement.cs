@@ -5,8 +5,8 @@ using UnityEngine;
 public class CubeMovement : MonoBehaviour
 {
     [SerializeField] [Range(1f, 10f)] private float moveSpeed; // Velocità di movimento del cubo
-    [SerializeField] [Range(25f, 30f)] private float maxYPosition; // Massima altezza del movimento verso l'alto
-    [SerializeField] [Range(20f, 27f)] private float minYPosition; // Minima altezza del movimento verso il basso
+    [SerializeField] [Range(0f, 30f)] private float maxYPosition; // Massima altezza del movimento verso l'alto
+    [SerializeField] [Range(0f, 27f)] private float minYPosition; // Minima altezza del movimento verso il basso
     [SerializeField] private bool movingUp = true; // Flag per direzione di movimento
 
 	void Update()

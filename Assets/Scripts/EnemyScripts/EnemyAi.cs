@@ -25,7 +25,7 @@ public class EnemyAi : MonoBehaviour
 
     //Attacking
     [SerializeField] private float timeBetweenAttacks;
-    [SerializeField] private bool alreadyAttacked;
+    //[SerializeField] private bool alreadyAttacked;
 
     //States
     [SerializeField] private float sightRange, attackRange;
@@ -98,10 +98,12 @@ public class EnemyAi : MonoBehaviour
         }*/
     }
 
+    /*
     private void ResetAttack()
     {
         alreadyAttacked = false;
     }
+    */
 
     public void DealDamageToEnemy()
     {
@@ -137,8 +139,7 @@ public class EnemyAi : MonoBehaviour
     private void EndGame()
     {
         Debug.Log("Endgame");
-        gameOverManager.GameOver();
-        Time.timeScale = 0f;
+        gameOverManager.Loss();
     }
 
     private void OnDrawGizmosSelected()

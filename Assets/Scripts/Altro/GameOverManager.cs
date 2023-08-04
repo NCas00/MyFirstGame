@@ -1,37 +1,52 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
+using System;
 
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverUI;
-    [SerializeField] private GameObject deathAudio;
-    [SerializeField] private float gameShutdownDelay = 3f; 
+    [SerializeField] private GameObject lossUI;
+    [SerializeField] private GameObject winUI;
+    //[SerializeField] private float gameShutdownDelay = 3f;
+    [SerializeField] private float timeToWin = 120f;
 
-    public void GameOver()
+    public bool win;
+    public bool loss;
+
+    private AudioClip audioClip;
+    public Action<AudioClip> OnGameEnd;
+
+    private void Update()
     {
-        Debug.Log("Hai perso");
-        gameOverUI.SetActive(true);
-        deathAudio.SetActive(true);
-        //QuitGame();
-        //StartCoroutine(QuitGame());
-        //Invoke("QuitGame()", gameShutdownDelay);
-        Invoke(nameof(QuitGame), gameShutdownDelay);
+        timeToWin -= Time.deltaTime;
+
+        if (timeToWin <= 0 && !loss)
+        {
+            Win();
+        }
     }
 
-    /*
-    private IEnumerator QuitGame()
+    public void Win()
     {
-        yield return new WaitForSeconds(gameShutdownDelay);
-        Debug.Log("Scarso");
-        Application.Quit();
-    }*/
-    
-    private void QuitGame()
+        win = true;
+
+            OnGameEnd?.Invoke(audioClip);
+
+        Time.timeScale = 0f;
+
+        winUI.SetActive(true);
+    }
+
+    public void Loss()
     {
-        Debug.Log("Scarso");
-        Application.Quit();
-        //UnityEditor.EditorApplication.isPlaying = false;
+        loss = true;
+
+        OnGameEnd?.Invoke(audioClip);
+
+        Time.timeScale = 0f;
+        
+        lossUI.SetActive(true);
     }
 }
+
+
 

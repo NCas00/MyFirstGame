@@ -3,10 +3,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private bool isMovingForward;
-    [SerializeField] private bool isMovingRight;
+    //[SerializeField] private bool isMovingForward;
+    //[SerializeField] private bool isMovingRight;
     [SerializeField] private bool isSprinting;
-    [SerializeField] private bool isJumping;
+    //[SerializeField] private bool isJumping;
 
     [SerializeField] [Range(1f, 100f)] private float speed;
     [SerializeField] [Range(1f, 200f)] private float sprintSpeed;
@@ -80,26 +80,26 @@ public class PlayerController : MonoBehaviour
 
     public void ForwardPressed(InputAction.CallbackContext context)
     {
-        isMovingForward = true;
+        //isMovingForward = true;
         forward = context.ReadValue<float>();
     }
 
     public void ForwardReleased(InputAction.CallbackContext context)
     {
-        isMovingForward = false;
+        //isMovingForward = false;
         forward = 0f;
 
     }
 
     public void RightPressed(InputAction.CallbackContext context)
     {
-        isMovingRight = true;
+        //isMovingRight = true;
         right = context.ReadValue<float>();
     }
 
     public void RightReleased(InputAction.CallbackContext context)
     {
-        isMovingRight = false;
+        //isMovingRight = false;
         right = 0f;
     }
 
@@ -121,16 +121,20 @@ public class PlayerController : MonoBehaviour
         }
         if (groundCheck.coyoteTimeCounter > 0)
         {
-            isJumping = true;
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            lastJumpTime = Time.time;
-            jumpStartPosition = transform.position.y;
+            //isJumping = true;
+
+            if (rb != null) 
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                lastJumpTime = Time.time;
+                jumpStartPosition = transform.position.y;
+            }
         }
     }
 
     public void JumpReleased(InputAction.CallbackContext context)
     {
-        isJumping = false;
+        //isJumping = false;
         groundCheck.coyoteTimeCounter = 0f;
     }
 
