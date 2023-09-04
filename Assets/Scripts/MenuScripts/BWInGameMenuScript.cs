@@ -11,11 +11,6 @@ public class BWInGameMenuScript : MonoBehaviour
 
     //AudioReferences
 
-    private static readonly string FirstPlay = "BWFirstPlay";
-    private static readonly string ThemePref = "BWThemePref";
-    private static readonly string SFXPref = "BWSFXPref";
-
-    private int firstPlayInt;
     public Slider themeSlider, sfxSlider;
     private float sfxValue, themeValue;
 
@@ -39,30 +34,7 @@ public class BWInGameMenuScript : MonoBehaviour
 
     private void Start()
     {
-        /*
-        firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
-
-        if (firstPlayInt == 0)
-        {
-            themeValue = .25f;
-            sfxValue = .75f;
-
-            themeSlider.value = themeValue;
-            sfxSlider.value = sfxValue;
-
-            PlayerPrefs.SetFloat(ThemePref, themeValue);
-            PlayerPrefs.SetFloat(SFXPref, sfxValue);
-
-            PlayerPrefs.SetInt(FirstPlay, -1);
-        }
-        else
-        {
-            PlayerPrefs.GetFloat(ThemePref);
-            themeSlider.value = themeValue;
-
-            PlayerPrefs.GetFloat(SFXPref);
-            sfxSlider.value = sfxValue;
-        }*/
+        
 	}
 
     private void Update()
@@ -105,21 +77,6 @@ public class BWInGameMenuScript : MonoBehaviour
 
 
     //AudioMethods
-
-        /*
-    public void SaveSoundSettings()
-    {
-        PlayerPrefs.SetFloat(ThemePref, themeSlider.value);
-        PlayerPrefs.SetFloat(SFXPref, sfxSlider.value);
-    }
-
-    private void OnApplicationFocus(bool focus)
-    {
-        if (!focus)
-        {
-            SaveSoundSettings();
-        }
-    }*/
 
     public void UpdateSound()
     {

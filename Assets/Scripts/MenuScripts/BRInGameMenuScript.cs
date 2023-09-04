@@ -11,11 +11,6 @@ public class BRInGameMenuScript : MonoBehaviour
 
     //AudioReferences
 
-    private static readonly string FirstPlay = "BRFirstPlay";
-    private static readonly string ThemePref = "BRThemePref";
-    private static readonly string SFXPref = "BRSFXPref";
-
-    private int firstPlayInt;
     public Slider themeSlider, sfxSlider;
     private float sfxValue, themeValue;
 
@@ -38,30 +33,7 @@ public class BRInGameMenuScript : MonoBehaviour
 
     private void Start()
     {
-        /*
-        firstPlayInt = PlayerPrefs.GetInt(FirstPlay);
-
-        if (firstPlayInt == 0)
-        {
-            themeValue = .25f;
-            sfxValue = .75f;
-
-            themeSlider.value = themeValue;
-            sfxSlider.value = sfxValue;
-
-            PlayerPrefs.SetFloat(ThemePref, themeValue);
-            PlayerPrefs.SetFloat(SFXPref, sfxValue);
-
-            PlayerPrefs.SetInt(FirstPlay, -1);
-        }
-        else
-        {
-            PlayerPrefs.GetFloat(ThemePref);
-            themeSlider.value = themeValue;
-
-            PlayerPrefs.GetFloat(SFXPref);
-            sfxSlider.value = sfxValue;
-        }*/
+        
     }
 
     private void Update()
@@ -103,21 +75,6 @@ public class BRInGameMenuScript : MonoBehaviour
 
 
     //AudioMethods
-
-        /*
-    public void SaveSoundSettings()
-    {
-        PlayerPrefs.SetFloat(ThemePref, themeSlider.value);
-        PlayerPrefs.SetFloat(SFXPref, sfxSlider.value);
-    }
-
-    private void OnApplicationFocus(bool focus)
-    {
-        if (!focus)
-        {
-            SaveSoundSettings();
-        }
-    }*/
 
     public void UpdateSound()
     {
