@@ -34,6 +34,9 @@ public class GameOverManager : MonoBehaviour
         Time.timeScale = 0f;
 
         winUI.SetActive(true);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void Loss()
@@ -45,6 +48,9 @@ public class GameOverManager : MonoBehaviour
         Time.timeScale = 0f;
         
         lossUI.SetActive(true);
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
 

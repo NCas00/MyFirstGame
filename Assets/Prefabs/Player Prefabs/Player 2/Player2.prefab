@@ -12,9 +12,7 @@ GameObject:
   - component: {fileID: 5305803343920580170}
   - component: {fileID: 5384293884621104479}
   - component: {fileID: 4115406690417440965}
-  - component: {fileID: 7771507931031419748}
   - component: {fileID: 5453931923266637245}
-  - component: {fileID: 2399750852793787261}
   m_Layer: 7
   m_Name: Player2
   m_TagString: Player
@@ -39,7 +37,7 @@ Transform:
   - {fileID: 270961006305929505}
   - {fileID: 3145452231284085704}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5305803343920580170
 Rigidbody:
@@ -181,31 +179,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &7771507931031419748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2307032702089674132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2867ef1c28a1d426094102e3607b27db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isMovingForward: 0
-  isMovingRight: 0
-  isSprinting: 0
-  isJumping: 0
-  speed: 20
-  sprintSpeed: 40
-  groundDrag: 2
-  jumpForce: 10
-  jumpCooldown: 2
-  maxJumpHeight: 3
-  rb: {fileID: 5305803343920580170}
-  groundCheck: {fileID: 5453931923266637245}
-  shootingController: {fileID: 6217362104084423164}
 --- !u!114 &5453931923266637245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,22 +195,6 @@ MonoBehaviour:
   isGrounded: 0
   coyoteTime: 0.5
   coyoteTimeCounter: 0
---- !u!114 &2399750852793787261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2307032702089674132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8d019047f9364142b2a37d88129217f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensitivity: 5
-  clampAngle: 85
-  verticalRotation: 0
-  horizontalRotation: 0
 --- !u!1 &7517843036315642900
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +469,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.32
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7612093353169822198, guid: d779c7c151a2741ba83d60c15f435f10, type: 3}
+    - {fileID: 6305133625471956494, guid: d779c7c151a2741ba83d60c15f435f10, type: 3}
+    - {fileID: 3797244213471518314, guid: d779c7c151a2741ba83d60c15f435f10, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -522,17 +482,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3057434417143792698, guid: d779c7c151a2741ba83d60c15f435f10, type: 3}
   m_PrefabInstance: {fileID: 128585981431191538}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6217362104084423164 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6305133625471956494, guid: d779c7c151a2741ba83d60c15f435f10, type: 3}
-  m_PrefabInstance: {fileID: 128585981431191538}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 387bca6ce966846a38a3a5578a64c637, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4696575888124877748
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -161,6 +161,15 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenOptions"",
+                    ""type"": ""Button"",
+                    ""id"": ""71a2d1ac-d4f7-4e96-b9b2-985cece48d95"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -370,6 +379,17 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LeftSwing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff127f22-b7fa-4596-9fa6-0a8702f2184e"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenOptions"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -911,6 +931,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         m_Player_RightSwing = m_Player.FindAction("RightSwing", throwIfNotFound: true);
         m_Player_ShortenCable = m_Player.FindAction("ShortenCable", throwIfNotFound: true);
         m_Player_ExtendCable = m_Player.FindAction("ExtendCable", throwIfNotFound: true);
+        m_Player_OpenOptions = m_Player.FindAction("OpenOptions", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -999,6 +1020,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RightSwing;
     private readonly InputAction m_Player_ShortenCable;
     private readonly InputAction m_Player_ExtendCable;
+    private readonly InputAction m_Player_OpenOptions;
     public struct PlayerActions
     {
         private @InputManager m_Wrapper;
@@ -1018,6 +1040,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         public InputAction @RightSwing => m_Wrapper.m_Player_RightSwing;
         public InputAction @ShortenCable => m_Wrapper.m_Player_ShortenCable;
         public InputAction @ExtendCable => m_Wrapper.m_Player_ExtendCable;
+        public InputAction @OpenOptions => m_Wrapper.m_Player_OpenOptions;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1072,6 +1095,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @ExtendCable.started += instance.OnExtendCable;
             @ExtendCable.performed += instance.OnExtendCable;
             @ExtendCable.canceled += instance.OnExtendCable;
+            @OpenOptions.started += instance.OnOpenOptions;
+            @OpenOptions.performed += instance.OnOpenOptions;
+            @OpenOptions.canceled += instance.OnOpenOptions;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1121,6 +1147,9 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
             @ExtendCable.started -= instance.OnExtendCable;
             @ExtendCable.performed -= instance.OnExtendCable;
             @ExtendCable.canceled -= instance.OnExtendCable;
+            @OpenOptions.started -= instance.OnOpenOptions;
+            @OpenOptions.performed -= instance.OnOpenOptions;
+            @OpenOptions.canceled -= instance.OnOpenOptions;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1273,6 +1302,7 @@ public partial class @InputManager: IInputActionCollection2, IDisposable
         void OnRightSwing(InputAction.CallbackContext context);
         void OnShortenCable(InputAction.CallbackContext context);
         void OnExtendCable(InputAction.CallbackContext context);
+        void OnOpenOptions(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

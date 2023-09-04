@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LossAudioController : MonoBehaviour
 {
-    public AudioSource lossAudio;
+    public GameObject LossAudio;
     public GameOverManager gameOverManager;
 
     private void Start()
@@ -17,7 +17,8 @@ public class LossAudioController : MonoBehaviour
         if (gameOverManager.loss == true)
         {
             Debug.Log("sei un bufu");
-            lossAudio.Play();
+            //LossAudio.Play();
+            LossAudio.SetActive(true);
         }
     }
 }

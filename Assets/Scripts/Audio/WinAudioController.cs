@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WinAudioController : MonoBehaviour
 {
-    public AudioSource winAudio;
+    public GameObject WinAudio;
     public GameOverManager gameOverManager;
 
     private void Start()
@@ -17,7 +17,8 @@ public class WinAudioController : MonoBehaviour
         if (gameOverManager.win == true)
         {
             Debug.Log("gg");
-            winAudio.Play();
+            //WinAudio.Play();
+            WinAudio.SetActive(true);
         }
     }
 }
